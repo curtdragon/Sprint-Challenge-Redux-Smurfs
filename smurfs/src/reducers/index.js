@@ -16,14 +16,22 @@ import { ADD_SMURF, GET_SMURFS, UPDATE_SMURF, DELETE_SMURF} from "../actions/ind
  }
 */
 
-const initialState = {
-  smurfs: [],
-  fetchingSmurfs: false,
-  addingSmurf: false,
-  updatingSmurf: false,
-  deletingSmurf: false,
-  error: null
+// const initialState = {
+//   smurfs: [],
+//   fetchingSmurfs: false,
+//   addingSmurf: false,
+//   updatingSmurf: false,
+//   deletingSmurf: false,
+//   error: null
+// }
+
+const initialState ={
+  smurfs: [
+    { name: "Brainey", age: 200, height: "5cm", id: 0 },
+    { name: "Johnny", age: 200, height: "5cm", id: 1 },
+  ]
 }
+
 
 /*
   You'll only need one smurf reducer for this project.
@@ -38,6 +46,7 @@ export default function rootReducer(state = initialState, action) {
     case ADD_SMURF:
       return {
         ...state,
+        smurfs: [...state.smurfs, action.payload]
       }
     case GET_SMURFS:
       return {

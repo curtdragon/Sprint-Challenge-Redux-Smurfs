@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-// import { connect} from "react-redux";
-// import uuid from "uuid";
+import { connect} from "react-redux";
+import uuid from "uuid";
+import {addSmurf} from "../actions/index"
 
 class Form extends Component {
     state ={
@@ -13,19 +14,43 @@ class Form extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
+        const { name, age, height } = this.state;
 
-        // const {smurf} = this.state;
+        const newSmurf ={
+            name,
+            age,
+            height,
+            id: uuid.v4(),
+        }
+        this.props.addSmurf(newSmurf)
+        this.setState({smurf:""});
     }
 
     render(){
-        const {smurf}= this.state;
+        const {name, age, height}= this.state;
         return(
             <form onSubmit={this.handleSubmit}>    
                 <input
                     type="text"
-                    placeholder="New Smurf"
-                    name="smurf"
-                    value={smurf}
+                    placeholder="Name"
+                    name="name"
+                    value={name}
+                    onChange={this.handleChange}
+                    required
+                />
+                <input
+                    type="text"
+                    placeholder="Age"
+                    name="age"
+                    value={age}
+                    onChange={this.handleChange}
+                    required
+                />
+                <input
+                    type="text"
+                    placeholder="Height"
+                    name="height"
+                    value={height}
                     onChange={this.handleChange}
                     required
                 />
@@ -35,4 +60,8 @@ class Form extends Component {
     }
 }
 
-export default Form;
+const mapDispatchToProps={
+    addSmurf
+}
+
+export default connect(null, mapDispatchToProps)(Form);

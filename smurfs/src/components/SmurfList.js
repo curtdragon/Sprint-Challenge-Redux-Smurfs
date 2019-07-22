@@ -1,18 +1,25 @@
 import React from "react";
-// import {connect} from "react-redux";
+import {connect} from "react-redux";
 
 function SmurfList (props) {
     return(
         <div>
-            <ul>
+            <div>
                 {props.smurfs.map(item=>{
                     return (
-                        <li key={item.id}>{item.smurf}</li>                        
+                        <p key={item.id}>Name: {item.name} Age: {item.age} Height: {item.height}</p>                        
                     )
                 })}
-            </ul>
+            </div>
         </div>
     )
 }
 
-export default SmurfList;
+const mapStateToProps = (state) => {
+    return {
+        smurfs: state.smurfs
+    }
+}
+
+export default connect(mapStateToProps, null)(SmurfList);
+// export default SmurfList;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Form from "./Form";
 import SmurfList from "./SmurfList";
+import {connect} from "react-redux";
 /*
  to wire this component up you're going to need a few things.
  I'll let you do this part on your own. 
@@ -15,10 +16,16 @@ class App extends Component {
         <h1>SMURFS! 2.0 W/ Redux</h1>
         <div>Welcome to your Redux version of Smurfs!</div>
         <Form/>
-        <SmurfList/>
+        <SmurfList />
       </div>
     );
   }
 }
 
-export default App;
+const mapStatetoProps = state => {
+  return {
+    smurfs: state.smurfs
+  }
+}
+
+export default connect (mapStatetoProps,null)(App);

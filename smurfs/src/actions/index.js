@@ -19,3 +19,10 @@ export const DELETE_SMURF = "DELETE_SMURF";
    U - updateSmurf
    D - deleteSmurf
 */
+
+export function addSmurf(newSmurf){
+  return{
+    type: ADD_SMURF,
+    payload: newSmurf
+  }
+}
