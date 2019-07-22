@@ -23,10 +23,11 @@ class Form extends Component {
             id: uuid.v4(),
         }
         this.props.addSmurf(newSmurf)
-        this.setState({smurf:""});
+        console.log("New smurf", newSmurf);
+        this.setState({name:"", age:"", height:""});
     }
 
-    render(){
+    render() {
         const {name, age, height}= this.state;
         return(
             <form onSubmit={this.handleSubmit}>    

@@ -2,7 +2,16 @@
   Be sure to import in all of the action types from `../actions`
 */
 
-import { ADD_SMURF, GET_SMURFS, UPDATE_SMURF, DELETE_SMURF} from "../actions/index";
+import { 
+  GET_SMURFS_START, 
+  GET_SMURFS_SUCCESS, 
+  GET_SMURFS_FAILED,
+  ADD_SMURF_START,
+  ADD_SMURF_SUCCESS,
+  ADD_SMURF_FAILED, 
+  // UPDATE_SMURF, 
+  // DELETE_SMURF
+} from "../actions/index";
 
 /*
  Your initial/default state for this project could *Although does not have to* look a lot like this
@@ -16,22 +25,14 @@ import { ADD_SMURF, GET_SMURFS, UPDATE_SMURF, DELETE_SMURF} from "../actions/ind
  }
 */
 
-// const initialState = {
-//   smurfs: [],
-//   fetchingSmurfs: false,
-//   addingSmurf: false,
-//   updatingSmurf: false,
-//   deletingSmurf: false,
-//   error: null
-// }
-
-const initialState ={
-  smurfs: [
-    { name: "Brainey", age: 200, height: "5cm", id: 0 },
-    { name: "Johnny", age: 200, height: "5cm", id: 1 },
-  ]
+const initialState = {
+  smurfs: [],
+  fetchingSmurfs: false,
+  addingSmurf: false,
+  updatingSmurf: false,
+  deletingSmurf: false,
+  error: null
 }
-
 
 /*
   You'll only need one smurf reducer for this project.
@@ -43,23 +44,57 @@ const initialState ={
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type){
-    case ADD_SMURF:
+    case ADD_SMURF_START:
       return {
         ...state,
-        smurfs: [...state.smurfs, action.payload]
+        addingSmurf:true,
       }
-    case GET_SMURFS:
+    
+    case ADD_SMURF_SUCCESS:
       return {
         ...state,
+        addingSmurf: false,
+        error: null,
+        smurfs: action.payload
       }
-    case UPDATE_SMURF:
+
+    case ADD_SMURF_FAILED:
       return {
         ...state,
-      }
-    case DELETE_SMURF:
+        addingSmurf: false,
+        error: action.payload.message,
+      }  
+
+    case GET_SMURFS_START:
       return {
         ...state,
+        fetchingSmurfs: true
       }
+
+    case GET_SMURFS_SUCCESS:{
+      return {
+        ...state,
+        fetchingSmurfs: false,
+        error: null,
+        smurfs: action.payload,
+      }
+    }
+
+    case GET_SMURFS_FAILED:
+      return {
+        ...state,
+        fetchingSmurfs: false,
+        error: action.payload.message,
+      }
+
+    // case UPDATE_SMURF:
+    //   return {
+    //     ...state,
+    //   }
+    // case DELETE_SMURF:
+    //   return {
+    //     ...state,
+    //   }
     default:
       return state;
   }
