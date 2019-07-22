@@ -4,8 +4,11 @@ import uuid from "uuid";
 import {addSmurf} from "../actions/index"
 
 class Form extends Component {
-    state ={
-        smurf:""
+    constructor(props) {
+        super(props);
+        this.state ={
+            smurf:""
+        }
     }
 
     handleChange = event => {
@@ -23,14 +26,22 @@ class Form extends Component {
             id: uuid.v4(),
         }
         this.props.addSmurf(newSmurf)
-        console.log("New smurf", newSmurf);
         this.setState({name:"", age:"", height:""});
     }
 
     render() {
         const {name, age, height}= this.state;
+        const { addingSmurf, error} = this.props;
+
+        if (addingSmurf) {
+            return <p>Adding Smurf...</p>
+        }
+       
         return(
-            <form onSubmit={this.handleSubmit}>    
+            <>
+                {error && <p>{error}</p>}
+
+            <form onSubmit={this.handleSubmit}>
                 <input
                     type="text"
                     placeholder="Name"
@@ -57,6 +68,7 @@ class Form extends Component {
                 />
             <button type="submit">Add New Smurf</button>    
             </form>
+            </>
         )
     }
 }

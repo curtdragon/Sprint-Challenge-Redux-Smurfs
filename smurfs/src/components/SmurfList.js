@@ -2,21 +2,11 @@ import React from "react";
 import {connect} from "react-redux";
 
 function SmurfList (props) {
-    const {
-        smurfs,
-        fetchingSmurfs,
-        error,
-    } = props
-
-
-    if (fetchingSmurfs) {
-        return <p>Smurfs Loading...</p>
-    }
+  
     return(
         <div>
-            {error && <p>{error}</p>}
             <div>
-                {smurfs.map(item=>{
+                {props.smurfs.map(item=>{
                     return (
                         <p key={item.id}>Name: {item.name} Age: {item.age} Height: {item.height}</p>                        
                     )
